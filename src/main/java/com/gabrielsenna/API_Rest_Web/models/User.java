@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,9 +35,10 @@ public class User {
     @Size(groups = {CreateUser.class, UpdateUser.class}, min = 8, max = 100)
     private String password;
 
-    //private List<Task> tasks = new ArrayList<Task>();
+    @OneToMany(mappedBy = "user")
+    private List<Task> tasks = new ArrayList<Task>();
 
-    private User() {}
+    public User() {}
 
     public User(Long id, String userName, String password) {
         this.id = id;
@@ -65,6 +68,11 @@ public class User {
 
     public void setPassword(@NotNull(groups = {CreateUser.class, UpdateUser.class}) @NotEmpty(groups = {CreateUser.class, UpdateUser.class}) @Size(groups = {CreateUser.class, UpdateUser.class}, min = 8, max = 100) String password) {
         this.password = password;
+    }
+
+
+    public List<Task> getTasks() {
+        return tasks;
     }
 
     @Override
