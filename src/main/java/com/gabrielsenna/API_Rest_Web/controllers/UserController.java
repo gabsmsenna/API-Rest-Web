@@ -30,7 +30,7 @@ public class UserController {
     public ResponseEntity<Void> create(@Valid @RequestBody User userObj) {
         this.userService.createUser(userObj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id").buildAndExpand(userObj.getId()).toUri();
+                .path("/{id}").buildAndExpand(userObj.getId()).toUri();
         return ResponseEntity.created(uri).build();
 
     }
